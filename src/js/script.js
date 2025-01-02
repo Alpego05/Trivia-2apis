@@ -5,18 +5,36 @@ const option4 = document.getElementById("option4");
 const submit = document.getElementById("submit");
 
 
-const ruta = "https://opentdb.com/api.php?amount=1";
+const ruta_trivia = "https://opentdb.com/api.php?category=15&amount=1";
 
-const cargarAsy = async () => {
-    const datos = await fetch(ruta); 
-    let datosjson = await datos.json(); // Convierte a JSON
+const cargarAsy_question = async () => {
+    const datos = await fetch(ruta_trivia); 
+    let datosjson = await datos.json(); // convierte a JSON
     console.log(datosjson); 
 
-    const results = datosjson.results; // Almacena los resultados
-    ShowAnswers(results); // Llama a ShowAnswers con los resultados
-
+    const results = datosjson.results; // resultados
+    ShowAnswers(results);
+    cargarAsy_img();
     return results; 
 };
+
+const ruta_img = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f803e8b71325d2d2c06ef563fd9e9f44&text=gatos&format=json&nojsoncallback=1&per_page=1";
+
+const cargarAsy_img = async () => {
+    try {
+        const datos = await fetch(ruta_img);
+        let datosjson = await datos.json(); 
+
+        console.log(datosjson);
+    } catch (error) {
+
+        console.error("Error al cargar los datos:", error);
+    }
+};
+
+
+
+
 
 const ShowAnswers = (results) => {
     results.forEach(result => {
@@ -38,13 +56,13 @@ const ShowAnswers = (results) => {
             option4.innerHTML = allAnswers[3];
         } else {
             console.log("respuesta simple");
+            cargarAsy_question();
         }
     });
 };
 
 
-
-document.addEventListener("DOMContentLoaded", loadPexelsImage);
+document.addEventListener("DOMContentLoaded", cargarAsy_question);
 
 
 
