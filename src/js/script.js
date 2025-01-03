@@ -8,13 +8,15 @@ const question = document.getElementById("question");
 const answers = document.getElementById("answers");
 
 let true_asnwer; // variable to store the correct answer
+let attemps; //para contar las veces que se pulsa una respuesta, hay 2 intentos
+let cont_questions;
 
 const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
 //category=13 para modificar la categoría
 
 const cargarAsy_img = async (keyword) => {
     //usamos la apikey
-    let api_key="f803e8b71325d2d2c06ef563fd9e9f44";
+    let api_key = "f803e8b71325d2d2c06ef563fd9e9f44";
     const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
 
     try {
@@ -26,7 +28,7 @@ const cargarAsy_img = async (keyword) => {
             const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
             const img = document.createElement("img");
             img.src = photoUrl;
-            
+
             img_container.innerHTML = "";
             img_container.appendChild(img);
         } else {
@@ -48,19 +50,28 @@ const cargarAsy_question = async () => {
 
 const ShowAnswers = (results) => {
     let keyword;
+    attemps = 0; // reinicia el conteo de intentos
+
+    //reiniciamos los colores de los background de las opciones
+    for (const answer of answers.children) {
+        answer.style.background = "transparent";
+    }
+
+
+    
     for (const result of results) {
         if (result.type === "multiple") {
             const allAnswers = [...result.incorrect_answers];
             allAnswers.push(result.correct_answer);
             allAnswers.sort(() => Math.random() - 0.5);
-            
+
             question.innerHTML = result.question;
             option1.innerHTML = allAnswers[0];
             option2.innerHTML = allAnswers[1];
             option3.innerHTML = allAnswers[2];
             option4.innerHTML = allAnswers[3];
 
-            switch(result.category) {
+            switch (result.category) {
                 case "General Knowledge":
                     keyword = "museo";
                     break;
@@ -69,11 +80,11 @@ const ShowAnswers = (results) => {
                     keyword = "libro";
                     break;
 
-                    
+
                 case "Entertainment: Film":
                     keyword = "peliculas";
                     break;
-                    
+
 
                 case "Entertainment: Music":
                     keyword = "piano"; //es rara
@@ -144,7 +155,7 @@ const ShowAnswers = (results) => {
                     break;
 
                 case "Entertainment: Comics":
-                    keyword ="Joker";
+                    keyword = "Joker";
                     break;
 
                 case "Science: Gadgets":
@@ -167,30 +178,55 @@ const ShowAnswers = (results) => {
             console.log("respuesta correcta: " + correct_answer); //respuesta correcta
             console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
 
-            
+
             cargarAsy_img(keyword);
             break;
         }
     }
 };
 
+
 const checkAnswers = (event) => {
     let choosenAnswer = event.target;
 
-    if (choosenAnswer.textContent === correct_answer) {
-        console.log("Respuesta correcta");
-        
-
-
-    } else {
-        console.log("Respuesta incorrecta");
+    if (event.target.tagName === "BUTTON")
+        if (choosenAnswer.textContent === correct_answer) {
+            console.log("Respuesta correcta");
+            event.target.style.background = "green";
+            //desabilitamos los otros botones
+            for (const answer of answers.children) {
+                answer.disabled = true;
+            }
+            //vuelve a cargar otra pregunta
+            setTimeout(() => {
+                cargarAsy_question();
+                for (const answer of answers.children) {
+                    answer.disabled = false;
+                }
+            }, 2000);
+        } else {
+            console.log("Respuesta incorrecta");
+            event.target.style.background = "red";
+            attemps++;
+            if (attemps < 2) {
+                console.log("Tienes otro intento");
+            } else {
+                for (const answer of answers.children) {
+                    if (answer.textContent === correct_answer) {
+                        answer.style.background = "green";
+                    }
+                    setTimeout(cargarAsy_question, 2000);
+                }
+            }
+        }
     }
-}
+
+
 
 
 
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
-answers.addEventListener("click", checkAnswers ); //metodo para comprobar la respuesta.
+answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
 
 // // 0:
 // // category : "Entertainment: Video Games"
