@@ -6,10 +6,14 @@ const img_container = document.getElementById("img_container");
 const submit = document.getElementById("submit");
 const question = document.getElementById("question");
 const answers = document.getElementById("answers");
+const num_answer = document.getElementById("num_answer");
+
 
 let true_asnwer; // variable to store the correct answer
 let attemps; //para contar las veces que se pulsa una respuesta, hay 2 intentos
-let cont_questions;
+let cont_questions = 0; //contar numero de pregunta
+let correct_asnwers = 0; //preguntas acertadas
+let wrong_answers = 0; //pregntas no acertadas
 
 const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
 //category=13 para modificar la categoría
@@ -56,6 +60,10 @@ const ShowAnswers = (results) => {
     for (const answer of answers.children) {
         answer.style.background = "transparent";
     }
+
+    //incrementamos el numero de la pregunta
+    cont_questions++;
+    num_answer.textContent = cont_questions;
 
 
     
