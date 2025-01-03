@@ -174,6 +174,19 @@ const ShowAnswers = (results) => {
     }
 };
 
+const checkAnswers = (event) => {
+    let choosenAnswer = event.target;
+
+    if (choosenAnswer.textContent === correct_answer) {
+        console.log("Respuesta correcta");
+        
+
+
+    } else {
+        console.log("Respuesta incorrecta");
+    }
+}
+
 
 
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
