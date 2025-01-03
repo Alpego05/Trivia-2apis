@@ -5,11 +5,17 @@ const option4 = document.getElementById("option4");
 const img_container = document.getElementById("img_container");
 const submit = document.getElementById("submit");
 const question = document.getElementById("question");
+const answers = document.getElementById("answers");
 
-const ruta_trivia = "https://opentdb.com/api.php?category=11&amount=5";
+let true_asnwer; // variable to store the correct answer
+
+const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
+//category=13 para modificar la categoría
 
 const cargarAsy_img = async (keyword) => {
-    const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f803e8b71325d2d2c06ef563fd9e9f44&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
+    //usamos la apikey
+    let api_key="f803e8b71325d2d2c06ef563fd9e9f44";
+    const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
 
     try {
         const datos = await fetch(ruta_img);
@@ -24,7 +30,7 @@ const cargarAsy_img = async (keyword) => {
             img_container.innerHTML = "";
             img_container.appendChild(img);
         } else {
-            console.log("No se encontraron fotos.");
+            console.log("No se encontraron fotos");
         }
     } catch (error) {
         console.error("Error al cargar la imagen:", error);
@@ -42,7 +48,6 @@ const cargarAsy_question = async () => {
 
 const ShowAnswers = (results) => {
     let keyword;
-    
     for (const result of results) {
         if (result.type === "multiple") {
             const allAnswers = [...result.incorrect_answers];
@@ -64,21 +69,22 @@ const ShowAnswers = (results) => {
                     keyword = "libro";
                     break;
 
-                    //-----------------------------------------------------------------------------------------------------------------------
+                    
                 case "Entertainment: Film":
-                    keyword = "netfix";
+                    keyword = "peliculas";
                     break;
+                    
 
                 case "Entertainment: Music":
-                    keyword = "Music";
+                    keyword = "piano"; //es rara
                     break;
 
-                case "Entertainment: Musicals & Theatres":
-                    keyword = "Theatre";
+                case "Entertainment: Musicals &amp; Theatres": //revisar
+                    keyword = "Shakespeare";
                     break;
 
                 case "Entertainment: Television":
-                    keyword = "Television";
+                    keyword = "telecinco";
                     break;
 
                 case "Entertainment: Video Games":
@@ -94,19 +100,19 @@ const ShowAnswers = (results) => {
                     break;
 
                 case "Science: Computers":
-                    keyword = "computers";
+                    keyword = "teclado";
                     break;
 
                 case "Science: Mathematics":
-                    keyword = "1+1";
+                    keyword = "matematicas";
                     break;
 
                 case "Mythology":
-                    keyword = "Centauro";
+                    keyword = "Zeus";
                     break;
 
                 case "Sports":
-                    keyword = "baseball";
+                    keyword = "futbol";
                     break;
 
                 case "Geography":
@@ -122,43 +128,44 @@ const ShowAnswers = (results) => {
                     break;
 
                 case "Art":
-                    keyword = "dibujo";
+                    keyword = "escultura";
                     break;
 
                 case "Celebrities":
-                    keyword = "Taylor Swift";
+                    keyword = "Kidd Keo";
                     break;
 
                 case "Animals":
-                    keyword = "Cat";
+                    keyword = "Rubius";
                     break;
 
                 case "Vehicles":
-                    keyword = "car";
+                    keyword = "coche";
                     break;
 
                 case "Entertainment: Comics":
-                    keyword ="comic";
+                    keyword ="Joker";
                     break;
 
                 case "Science: Gadgets":
-                    keyword = "bombilla";
+                    keyword = "cacerola";
                     break;
 
-                case "Entertainment: Japanese Anime & Manga":
-                    keyword = "anime";
+                case "Entertainment: Japanese Anime &amp; Manga":
+                    keyword = "Goku";
                     break;
 
-                case "Entertainment: Cartoon & Animations":
-                    keyword = "bob esponja";
+                case "Entertainment: Cartoon &amp; Animations":
+                    keyword = "Inazuma eleven";
                     break;
 
                 default:
-                    keyword = "navidad";
+                    keyword = "perros";
             }
-            
-            
-            console.log("Palabra clave para la imagen:", keyword);
+
+            correct_answer = result.correct_answer;
+            console.log("respuesta correcta: " + correct_answer); //respuesta correcta
+            console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
 
             
             cargarAsy_img(keyword);
@@ -167,105 +174,10 @@ const ShowAnswers = (results) => {
     }
 };
 
-document.addEventListener("DOMContentLoaded", cargarAsy_question);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const option1 = document.getElementById("option1");
-// const option2 = document.getElementById("option2");
-// const option3 = document.getElementById("option3");
-// const option4 = document.getElementById("option4");
-// const img_container = document.getElementById("img_container");
-// const submit = document.getElementById("submit");
-// const question = document.getElementById("question");
-
-// const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
-// // category=15
-
-// const cargarAsy_img = async (keyword) => {
-    // const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f803e8b71325d2d2c06ef563fd9e9f44&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
-
-    // try {
-        // const datos = await fetch(ruta_img);
-        // const datosjson = await datos.json();
-
-        // if (datosjson.photos.photo.length > 0) {
-            // const photo = datosjson.photos.photo[0];
-            // const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
-            // const img = document.createElement("img");
-            // img.src = photoUrl;
-            // img.style.maxWidth = "100%";
-            // img.style.height = "auto";
-            // img_container.innerHTML = "";
-            // img_container.appendChild(img);
-        // } else {
-            // console.log("No se encontraron fotos.");
-        // }
-    // } catch (error) {
-        // console.error("Error al cargar la imagen:", error);
-    // }
-// };
-
-// const cargarAsy_question = async () => {
-    // const datos = await fetch(ruta_trivia);
-    // let datosjson = await datos.json(); // convierte a JSON
-    // console.log(datosjson);
-
-    // const results = datosjson.results; // resultados
-    // ShowAnswers(results);
-
-    // for (const result of results) {
-        // if (result.type === "multiple") {
-            // ShowAnswers([result]);
-            // return result;
-        // }
-    // }
-
-
-// };
-
-
-// const ShowAnswers = (results) => {
-    // let keyword;
-    // if (results.length > 0) {
-        // results.forEach(result => {
-            // const allAnswers = [...result.incorrect_answers];
-            // allAnswers.push(result.correct_answer);
-            // allAnswers.sort(() => Math.random() - 0.5);
-            // question.innerHTML = result.question;
-            // keyword = result.category;
-            // console.log(keyword);
-
-        // // document.getElementById("result").innerHTML = result.question ;
-
-        // option1.innerHTML = allAnswers[0];
-        // option2.innerHTML = allAnswers[1];
-        // option3.innerHTML = allAnswers[2];
-        // option4.innerHTML = allAnswers[3];
-        
-        // return results[0];
-    // });
-    // cargarAsy_img(keyword);
-// }
-// };
-
-
-// document.addEventListener("DOMContentLoaded", cargarAsy_question);
+document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
+answers.addEventListener("click", checkAnswers ); //metodo para comprobar la respuesta.
 
 // // 0:
 // // category : "Entertainment: Video Games"
