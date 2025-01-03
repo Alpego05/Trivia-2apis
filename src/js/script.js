@@ -60,13 +60,6 @@ const ShowAnswers = (results) => {
     for (const answer of answers.children) {
         answer.style.background = "transparent";
     }
-
-    //incrementamos el numero de la pregunta
-    cont_questions++;
-    num_answer.textContent = cont_questions;
-
-
-    
     for (const result of results) {
         if (result.type === "multiple") {
             const allAnswers = [...result.incorrect_answers];
@@ -182,6 +175,14 @@ const ShowAnswers = (results) => {
                     keyword = "perros";
             }
 
+            //incrementamos el numero de la pregunta
+            cont_questions++;
+            num_answer.textContent = cont_questions;
+            if (cont_questions > 10) {
+                console.log("reinicio")
+                location.href = 'results.html'
+            }
+
             correct_answer = result.correct_answer;
             console.log("respuesta correcta: " + correct_answer); //respuesta correcta
             console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
@@ -227,7 +228,7 @@ const checkAnswers = (event) => {
                 }
             }
         }
-    }
+}
 
 
 
