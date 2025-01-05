@@ -1,6 +1,6 @@
 //Objeto para las preguntas
 
-class question{
+class Question{
     constructor(question,category,difficulty,incorrect_answers,correct_answer){
         this.question = question;
         this.category = category;
@@ -11,10 +11,20 @@ class question{
     }
 }
 
-const newQuestion = (jsonData) =>{
+//metodo para crear el objeto pregunta que viene desde script.js
+const newQuestion = (jsonData) => {
+    // Crear una instancia de la clase Question
+    const newquestion = new Question(
+        jsonData.question,
+        jsonData.category,
+        jsonData.difficulty,
+        jsonData.incorrect_answers,
+        jsonData.correct_answer
+    );
 
-}
-
+    console.log(newquestion); // mostrar 
+    return newquestion; // devolver 
+};
 
 
 //ejemplo

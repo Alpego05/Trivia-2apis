@@ -11,11 +11,11 @@ const num_answer = document.getElementById("num_answer");
 //import objeto preguntas
 import "./questions.js";
 
-let true_asnwer; // variable to store the correct answer
+let correct_answer; // variable to store the correct answer 
 let attemps; //para contar las veces que se pulsa una respuesta, hay 2 intentos
 let cont_questions = 0; //contar numero de pregunta
-let correct_asnwers = 0; //preguntas acertadas
-let wrong_answers = 0; //pregntas no acertadas
+let correct_answers = 0; //preguntas acertadas **not used**
+let wrong_answers = 0; //pregntas no acertadas **not used**
 
 const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
 //category=13 para modificar la categoría
@@ -49,11 +49,17 @@ const cargarAsy_question = async () => {
     const datos = await fetch(ruta_trivia);
     let datosjson = await datos.json(); // convierte a JSON
     console.log(datosjson);
+    
 
     const results = datosjson.results; // resultados
-    ShowAnswers(results);
+    const questions = results.map(result => newQuestion(result)); //llama a la funcion dentro de questions.js para crear el objeto pregunta
+    console.log(questions);
+
+    ShowAnswers(results); //a questions
 };
 
+
+//ajustarlo a la incorporacion del objeto*********************************************************************************
 const ShowAnswers = (results) => {
     let keyword;
     attemps = 0; // reinicia el conteo de intentos
@@ -69,7 +75,7 @@ const ShowAnswers = (results) => {
             allAnswers.sort(() => Math.random() - 0.5);
 
             question.innerHTML = result.question;
-            option1.innerHTML = allAnswers[0];
+            option1.innerHTML = allAnswers[0]; 
             option2.innerHTML = allAnswers[1];
             option3.innerHTML = allAnswers[2];
             option4.innerHTML = allAnswers[3];
@@ -185,6 +191,7 @@ const ShowAnswers = (results) => {
                 location.href = 'results.html'
             }
 
+            //******************************** */
             correct_answer = result.correct_answer;
             console.log("respuesta correcta: " + correct_answer); //respuesta correcta
             console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
