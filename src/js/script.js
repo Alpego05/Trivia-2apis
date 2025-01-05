@@ -8,6 +8,8 @@ const question = document.getElementById("question");
 const answers = document.getElementById("answers");
 const num_answer = document.getElementById("num_answer");
 
+//import objeto preguntas
+import "./questions.js";
 
 let true_asnwer; // variable to store the correct answer
 let attemps; //para contar las veces que se pulsa una respuesta, hay 2 intentos
@@ -236,6 +238,13 @@ const checkAnswers = (event) => {
 
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
 answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
+
+
+
+
+//localstorage
+localStorage.setItem('correctAnswers', correct_answers);
+localStorage.setItem('wrongAnswers', wrong_answers);
 
 // // 0:
 // // category : "Entertainment: Video Games"
