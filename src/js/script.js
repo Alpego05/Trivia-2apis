@@ -60,148 +60,296 @@ const cargarAsy_question = async () => {
 
 
 //ajustarlo a la incorporacion del objeto*********************************************************************************
-const ShowAnswers = (results) => {
-    let keyword;
-    attemps = 0; // reinicia el conteo de intentos
+const ShowAnswers = (questions) => {
 
-    //reiniciamos los colores de los background de las opciones
+
+    let keyword;
+    attemps = 0; // Reinicia el conteo de intentos
+
+    // Reiniciamos los colores de los botones
     for (const answer of answers.children) {
         answer.style.background = "transparent";
     }
-    for (const result of results) {
-        if (result.type === "multiple") {
-            const allAnswers = [...result.incorrect_answers];
-            allAnswers.push(result.correct_answer);
-            allAnswers.sort(() => Math.random() - 0.5);
 
-            question.innerHTML = result.question;
-            option1.innerHTML = allAnswers[0]; 
-            option2.innerHTML = allAnswers[1];
-            option3.innerHTML = allAnswers[2];
-            option4.innerHTML = allAnswers[3];
+    for (const questionObj of questions) {
+        const allAnswers = [...questionObj.incorrect_answers];
+        allAnswers.push(questionObj.correct_answer);
+        allAnswers.sort(() => Math.random() - 0.5);
 
-            switch (result.category) {
-                case "General Knowledge":
-                    keyword = "museo";
-                    break;
+        question.innerHTML = questionObj.question;
+        option1.innerHTML = allAnswers[0];
+        option2.innerHTML = allAnswers[1];
+        option3.innerHTML = allAnswers[2];
+        option4.innerHTML = allAnswers[3];
 
-                case "Entertainment: Books":
-                    keyword = "libro";
-                    break;
+        // Definir palabra clave según la categoría
+        switch (questionObj.category) {
+            case "General Knowledge":
+                keyword = "museo";
+                break;
 
-
-                case "Entertainment: Film":
-                    keyword = "peliculas";
-                    break;
+            case "Entertainment: Books":
+                keyword = "libro";
+                break;
 
 
-                case "Entertainment: Music":
-                    keyword = "piano"; //es rara
-                    break;
-
-                case "Entertainment: Musicals &amp; Theatres": //revisar
-                    keyword = "Shakespeare";
-                    break;
-
-                case "Entertainment: Television":
-                    keyword = "telecinco";
-                    break;
-
-                case "Entertainment: Video Games":
-                    keyword = "pokemon";
-                    break;
-
-                case "Entertainment: Board Games":
-                    keyword = "Boardgame";
-                    break;
-
-                case "Science & Nature":
-                    keyword = "Nature";
-                    break;
-
-                case "Science: Computers":
-                    keyword = "teclado";
-                    break;
-
-                case "Science: Mathematics":
-                    keyword = "matematicas";
-                    break;
-
-                case "Mythology":
-                    keyword = "Zeus";
-                    break;
-
-                case "Sports":
-                    keyword = "futbol";
-                    break;
-
-                case "Geography":
-                    keyword = "mapamundi";
-                    break;
-
-                case "History":
-                    keyword = "Mapa de españa";
-                    break;
-
-                case "Politics":
-                    keyword = "Pedro Sanchez";
-                    break;
-
-                case "Art":
-                    keyword = "escultura";
-                    break;
-
-                case "Celebrities":
-                    keyword = "Kidd Keo";
-                    break;
-
-                case "Animals":
-                    keyword = "Rubius";
-                    break;
-
-                case "Vehicles":
-                    keyword = "coche";
-                    break;
-
-                case "Entertainment: Comics":
-                    keyword = "Joker";
-                    break;
-
-                case "Science: Gadgets":
-                    keyword = "cacerola";
-                    break;
-
-                case "Entertainment: Japanese Anime &amp; Manga":
-                    keyword = "Goku";
-                    break;
-
-                case "Entertainment: Cartoon &amp; Animations":
-                    keyword = "Inazuma eleven";
-                    break;
-
-                default:
-                    keyword = "perros";
-            }
-
-            //incrementamos el numero de la pregunta
-            cont_questions++;
-            num_answer.textContent = cont_questions;
-            if (cont_questions > 10) {
-                console.log("reinicio")
-                location.href = 'results.html'
-            }
-
-            //******************************** */
-            correct_answer = result.correct_answer;
-            console.log("respuesta correcta: " + correct_answer); //respuesta correcta
-            console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
+            case "Entertainment: Film":
+                keyword = "peliculas";
+                break;
 
 
-            cargarAsy_img(keyword);
-            break;
+            case "Entertainment: Music":
+                keyword = "piano"; //es rara
+                break;
+
+            case "Entertainment: Musicals &amp; Theatres": //revisar
+                keyword = "Shakespeare";
+                break;
+
+            case "Entertainment: Television":
+                keyword = "telecinco";
+                break;
+
+            case "Entertainment: Video Games":
+                keyword = "pokemon";
+                break;
+
+            case "Entertainment: Board Games":
+                keyword = "Boardgame";
+                break;
+
+            case "Science & Nature":
+                keyword = "Nature";
+                break;
+
+            case "Science: Computers":
+                keyword = "teclado";
+                break;
+
+            case "Science: Mathematics":
+                keyword = "matematicas";
+                break;
+
+            case "Mythology":
+                keyword = "Zeus";
+                break;
+
+            case "Sports":
+                keyword = "futbol";
+                break;
+
+            case "Geography":
+                keyword = "mapamundi";
+                break;
+
+            case "History":
+                keyword = "Mapa de españa";
+                break;
+
+            case "Politics":
+                keyword = "Pedro Sanchez";
+                break;
+
+            case "Art":
+                keyword = "escultura";
+                break;
+
+            case "Celebrities":
+                keyword = "Kidd Keo";
+                break;
+
+            case "Animals":
+                keyword = "Rubius";
+                break;
+
+            case "Vehicles":
+                keyword = "coche";
+                break;
+
+            case "Entertainment: Comics":
+                keyword = "Joker";
+                break;
+
+            case "Science: Gadgets":
+                keyword = "cacerola";
+                break;
+
+            case "Entertainment: Japanese Anime &amp; Manga":
+                keyword = "Goku";
+                break;
+
+            case "Entertainment: Cartoon &amp; Animations":
+                keyword = "Inazuma eleven";
+                break;
+
+            default:
+                keyword = "perros";
         }
+
+        // Incrementar el contador de preguntas
+        cont_questions++;
+        num_answer.textContent = cont_questions;
+        if (cont_questions > 10) {
+            console.log("Reinicio");
+            location.href = "results.html";
+        }
+
+        // Establecer la respuesta correcta y cargar la imagen
+        correct_answer = questionObj.correct_answer;
+        console.log("Respuesta correcta:", correct_answer);
+        console.log("Imagen:", keyword);
+
+        cargarAsy_img(keyword);
+        break; // Salimos tras mostrar la primera pregunta
     }
-};
+
+
+}
+
+//enseñar preguntas sin objetos **not used**
+// const ShowAnswers = (results) => {
+    
+//     let keyword;
+//     attemps = 0; // reinicia el conteo de intentos
+
+//     //reiniciamos los colores de los background de las opciones
+//     for (const answer of answers.children) {
+//         answer.style.background = "transparent";
+//     }
+//     for (const result of results) {
+//         if (result.type === "multiple") {
+//             const allAnswers = [...result.incorrect_answers];
+//             allAnswers.push(result.correct_answer);
+//             allAnswers.sort(() => Math.random() - 0.5);
+
+//             question.innerHTML = result.question;
+//             option1.innerHTML = allAnswers[0]; 
+//             option2.innerHTML = allAnswers[1];
+//             option3.innerHTML = allAnswers[2];
+//             option4.innerHTML = allAnswers[3];
+
+//             switch (result.category) {
+//                 case "General Knowledge":
+//                     keyword = "museo";
+//                     break;
+
+//                 case "Entertainment: Books":
+//                     keyword = "libro";
+//                     break;
+
+
+//                 case "Entertainment: Film":
+//                     keyword = "peliculas";
+//                     break;
+
+
+//                 case "Entertainment: Music":
+//                     keyword = "piano"; //es rara
+//                     break;
+
+//                 case "Entertainment: Musicals &amp; Theatres": //revisar
+//                     keyword = "Shakespeare";
+//                     break;
+
+//                 case "Entertainment: Television":
+//                     keyword = "telecinco";
+//                     break;
+
+//                 case "Entertainment: Video Games":
+//                     keyword = "pokemon";
+//                     break;
+
+//                 case "Entertainment: Board Games":
+//                     keyword = "Boardgame";
+//                     break;
+
+//                 case "Science & Nature":
+//                     keyword = "Nature";
+//                     break;
+
+//                 case "Science: Computers":
+//                     keyword = "teclado";
+//                     break;
+
+//                 case "Science: Mathematics":
+//                     keyword = "matematicas";
+//                     break;
+
+//                 case "Mythology":
+//                     keyword = "Zeus";
+//                     break;
+
+//                 case "Sports":
+//                     keyword = "futbol";
+//                     break;
+
+//                 case "Geography":
+//                     keyword = "mapamundi";
+//                     break;
+
+//                 case "History":
+//                     keyword = "Mapa de españa";
+//                     break;
+
+//                 case "Politics":
+//                     keyword = "Pedro Sanchez";
+//                     break;
+
+//                 case "Art":
+//                     keyword = "escultura";
+//                     break;
+
+//                 case "Celebrities":
+//                     keyword = "Kidd Keo";
+//                     break;
+
+//                 case "Animals":
+//                     keyword = "Rubius";
+//                     break;
+
+//                 case "Vehicles":
+//                     keyword = "coche";
+//                     break;
+
+//                 case "Entertainment: Comics":
+//                     keyword = "Joker";
+//                     break;
+
+//                 case "Science: Gadgets":
+//                     keyword = "cacerola";
+//                     break;
+
+//                 case "Entertainment: Japanese Anime &amp; Manga":
+//                     keyword = "Goku";
+//                     break;
+
+//                 case "Entertainment: Cartoon &amp; Animations":
+//                     keyword = "Inazuma eleven";
+//                     break;
+
+//                 default:
+//                     keyword = "perros";
+//             }
+
+//             //incrementamos el numero de la pregunta
+//             cont_questions++;
+//             num_answer.textContent = cont_questions;
+//             if (cont_questions > 10) {
+//                 console.log("reinicio")
+//                 location.href = 'results.html'
+//             }
+
+//             //******************************** */
+//             correct_answer = result.correct_answer;
+//             console.log("respuesta correcta: " + correct_answer); //respuesta correcta
+//             console.log("imagen:", keyword); //establecemos la palabra clave que recibirá el metodo de carga de la api de las imagenes
+
+
+//             cargarAsy_img(keyword);
+//             break;
+//         }
+//     }
+// };
 
 
 const checkAnswers = (event) => {
