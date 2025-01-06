@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trivia Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="./.css"> -->
 </head>
-<body>
-    <h1>HAs terminado el juego</h1>
-    
+
+<body class="bg-purple-900 text-white min-h-screen flex items-center justify-center">
+    <div class="bg-purple-700 p-10 rounded-lg shadow-lg max-w-lg text-center">
+         <h1 class="text-2xl font-bold mb-5">Trivia Game</h1>
+         <h2 class="text-1xl font-bold mb-5">- Resultados -</h2>  
+         <p>Respuestas correctas: <span id="correctAnswers"> 0 </span></p>
+         <p>Respuestas incorrectas: <span id="incorrectAnswers"> 0 </span></p>
+         <p>Respuestas acertadas por suerte: <span id="luckyAnswers"> 0 </span></p>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+   
+
+    </div>
+
+    <script type="module" src="../js/script.js"></script>
+    <script src="../js/questions.js"></script>
 </body>
+
 </html>

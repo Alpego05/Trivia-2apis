@@ -49,7 +49,7 @@ const cargarAsy_question = async () => {
     const datos = await fetch(ruta_trivia);
     let datosjson = await datos.json(); // convierte a JSON
     console.log(datosjson);
-    
+
 
     const results = datosjson.results; // resultados
     const questions = results.map(result => newQuestion(result)); //llama a la funcion dentro de questions.js para crear el objeto pregunta
@@ -208,7 +208,7 @@ const ShowAnswers = (questions) => {
 
 //enseñar preguntas sin objetos **not used**
 // const ShowAnswers = (results) => {
-    
+
 //     let keyword;
 //     attemps = 0; // reinicia el conteo de intentos
 
@@ -354,8 +354,8 @@ const ShowAnswers = (questions) => {
 
 const checkAnswers = (event) => {
     let choosenAnswer = event.target;
-
-    if (event.target.tagName === "BUTTON")
+    
+    if (event.target.tagName === "BUTTON") {
         if (choosenAnswer.textContent === correct_answer) {
             console.log("Respuesta correcta");
             event.target.style.background = "green";
@@ -385,6 +385,7 @@ const checkAnswers = (event) => {
                 }
             }
         }
+    }
 }
 
 
