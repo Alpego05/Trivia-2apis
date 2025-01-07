@@ -435,11 +435,22 @@ const checkAnswers = (event) => {
 const showResults = () => {
     game.style.display = "none";
     results.style.display = "block";
+
+    let correct = localStorage.getItem('correctAnswers');
+    let wrong = localStorage.getItem('wrongAnswers');
+    let lucky = localStorage.getItem('luckyAnswers');
+
+    correcthtml.textContent = correct;
+    incorrecthtml.textContent = wrong;
+    luckyhtml.textContent = lucky;
+
 }
 
 
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
 answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
+
+//metodo para desactivar results cuando se inicia la página
 document.addEventListener("DOMContentLoaded" , () => {
     results.style.display = "none";
 })
