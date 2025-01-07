@@ -6,66 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Game</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <link rel="stylesheet" href="./.css"> -->
+    <link rel="stylesheet" href="./assets/remixicon/remixicon.css" />
 </head>
 
-<body class="bg-purple-800 text-white min-h-screen flex items-center justify-center">
-    <div class="bg-purple-700 p-10 rounded-lg shadow-lg max-w-lg text-center">
-        <!-- <h1 class="text-2xl font-bold mb-5">Trivia Game</h1> -->
-        <p class="text-white text-right font-semibold text-xs mt-2 mb-2">
-            Pregunta <span id="num_answer" class="text-purple-300 font-bold">0</span> de 10
+<body class="bg-purple-300 text-gray-800 min-h-screen flex items-center justify-center">
+    <div class="bg-purple-100 p-10 rounded-lg shadow-lg max-w-lg text-center border border-purple-300 my-3">
+        <p class="text-gray-700 text-right font-semibold text-sm mb-4">
+            Pregunta <span id="num_answer" class="text-purple-500 font-bold">0</span> de 10
         </p>
-        <p id="question" class="text-lg font-semibold mb-5">Aquí va a salir la pregunta</p>
+        <p id="question" class="text-xl font-bold mb-6 text-purple-700">Aquí va a salir la pregunta</p>
 
+        <!-- Opciones de Respuesta -->
         <div id="answers" class="flex flex-col gap-4 p-4 max-w-sm mx-auto">
             <button id="option1"
-                class="border border-purple-500 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded shadow-md transition-all duration-300">
+                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-pink-600 hover:bg-purple-500 transition-all duration-300">
                 Opción 1
             </button>
             <button id="option2"
-                class="border border-purple-500 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded shadow-md transition-all duration-300">
+                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-yellow-600 hover:bg-purple-500 transition-all duration-300">
                 Opción 2
             </button>
             <button id="option3"
-                class="border border-purple-500 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded shadow-md transition-all duration-300">
+                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-green-600 hover:bg-purple-500 transition-all duration-300">
                 Opción 3
             </button>
-
             <button id="option4"
-                class="border border-purple-500 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded shadow-md transition-all duration-300">
+                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-blue-600 hover:bg-purple-500 transition-all duration-300">
                 Opción 4
             </button>
-
-
-
         </div>
+
+        <!-- Contenedor de Imagen -->
         <div id="img_container" class="flex justify-center items-center mt-6">
-
+            <!-- Aquí puedes agregar una imagen si es necesario -->
         </div>
-
-
-
-
-
-
-
-
-
-
-
-        <!-- poner preguntas de verdadero falso, no tocar -->
-        <!-- <div id="boolean" class="flex flex-col gap-3"> -->
-        <!-- <button id="option-true" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded transition-all duration-300">True</button> -->
-        <!-- <button id="option-false" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded transition-all duration-300">False </button> -->
-        <!-- </div> -->
-
-
-        <!-- <button id="submit" class="mt-5 bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-6 rounded transition-all duration-300">Submit</button> -->
-
     </div>
 
     <script type="module" src="../js/script.js"></script>
-    <script  src="../js/questions.js"></script>
+    <script src="../js/questions.js"></script>
 </body>
 
 </html>
