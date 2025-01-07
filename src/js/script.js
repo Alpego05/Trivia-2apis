@@ -18,7 +18,7 @@ let cont_questions = 0; //contar numero de pregunta
 let correct_answers = 0; //preguntas acertadas **not used**
 let wrong_answers = 0; //pregntas no acertadas **not used**
 
-console.log("dificultad del trivia: "+localStorage.getItem("difficulty"));
+console.log("dificultad del trivia: " + localStorage.getItem("difficulty"));
 let difficulty = localStorage.getItem("difficulty");
 
 const ruta_trivia = `https://opentdb.com/api.php?&amount=5&difficulty=${difficulty}`;
@@ -76,137 +76,142 @@ const ShowAnswers = (questions) => {
     }
 
     for (const questionObj of questions) {
-        const allAnswers = [...questionObj.incorrect_answers];
-        allAnswers.push(questionObj.correct_answer);
-        allAnswers.sort(() => Math.random() - 0.5);
 
-        question.innerHTML = questionObj.question;
-        option1.innerHTML = allAnswers[0];
-        option2.innerHTML = allAnswers[1];
-        option3.innerHTML = allAnswers[2];
-        option4.innerHTML = allAnswers[3];
-
-        // Definir palabra clave según la categoría
-        switch (questionObj.category) {
-            case "General Knowledge":
-                keyword = "museo";
-                break;
-
-            case "Entertainment: Books":
-                keyword = "libro";
-                break;
+        //filtramos las preguntas que son boolean
+        if (questionObj.type == "multiple") {
 
 
-            case "Entertainment: Film":
-                keyword = "peliculas";
-                break;
+            const allAnswers = [...questionObj.incorrect_answers];
+            allAnswers.push(questionObj.correct_answer);
+            allAnswers.sort(() => Math.random() - 0.5);
+
+            question.innerHTML = questionObj.question;
+            option1.innerHTML = allAnswers[0];
+            option2.innerHTML = allAnswers[1];
+            option3.innerHTML = allAnswers[2];
+            option4.innerHTML = allAnswers[3];
+
+            // Definir palabra clave según la categoría
+            switch (questionObj.category) {
+                case "General Knowledge":
+                    keyword = "museo";
+                    break;
+
+                case "Entertainment: Books":
+                    keyword = "libro";
+                    break;
 
 
-            case "Entertainment: Music":
-                keyword = "piano"; //es rara
-                break;
+                case "Entertainment: Film":
+                    keyword = "peliculas";
+                    break;
 
-            case "Entertainment: Musicals &amp; Theatres": //revisar
-                keyword = "Shakespeare";
-                break;
 
-            case "Entertainment: Television":
-                keyword = "telecinco";
-                break;
+                case "Entertainment: Music":
+                    keyword = "piano"; //es rara
+                    break;
 
-            case "Entertainment: Video Games":
-                keyword = "pokemon";
-                break;
+                case "Entertainment: Musicals &amp; Theatres": //revisar
+                    keyword = "Shakespeare";
+                    break;
 
-            case "Entertainment: Board Games":
-                keyword = "Boardgame";
-                break;
+                case "Entertainment: Television":
+                    keyword = "telecinco";
+                    break;
 
-            case "Science & Nature":
-                keyword = "Nature";
-                break;
+                case "Entertainment: Video Games":
+                    keyword = "pokemon";
+                    break;
 
-            case "Science: Computers":
-                keyword = "teclado";
-                break;
+                case "Entertainment: Board Games":
+                    keyword = "Boardgame";
+                    break;
 
-            case "Science: Mathematics":
-                keyword = "matematicas";
-                break;
+                case "Science & Nature":
+                    keyword = "Nature";
+                    break;
 
-            case "Mythology":
-                keyword = "Zeus";
-                break;
+                case "Science: Computers":
+                    keyword = "teclado";
+                    break;
 
-            case "Sports":
-                keyword = "futbol";
-                break;
+                case "Science: Mathematics":
+                    keyword = "matematicas";
+                    break;
 
-            case "Geography":
-                keyword = "mapamundi";
-                break;
+                case "Mythology":
+                    keyword = "Zeus";
+                    break;
 
-            case "History":
-                keyword = "Mapa de españa";
-                break;
+                case "Sports":
+                    keyword = "futbol";
+                    break;
 
-            case "Politics":
-                keyword = "Pedro Sanchez";
-                break;
+                case "Geography":
+                    keyword = "mapamundi";
+                    break;
 
-            case "Art":
-                keyword = "escultura";
-                break;
+                case "History":
+                    keyword = "Mapa de españa";
+                    break;
 
-            case "Celebrities":
-                keyword = "Kidd Keo";
-                break;
+                case "Politics":
+                    keyword = "Pedro Sanchez";
+                    break;
 
-            case "Animals":
-                keyword = "Rubius";
-                break;
+                case "Art":
+                    keyword = "escultura";
+                    break;
 
-            case "Vehicles":
-                keyword = "coche";
-                break;
+                case "Celebrities":
+                    keyword = "Kidd Keo";
+                    break;
 
-            case "Entertainment: Comics":
-                keyword = "Joker";
-                break;
+                case "Animals":
+                    keyword = "Rubius";
+                    break;
 
-            case "Science: Gadgets":
-                keyword = "cacerola";
-                break;
+                case "Vehicles":
+                    keyword = "coche";
+                    break;
 
-            case "Entertainment: Japanese Anime &amp; Manga":
-                keyword = "Goku";
-                break;
+                case "Entertainment: Comics":
+                    keyword = "Joker";
+                    break;
 
-            case "Entertainment: Cartoon &amp; Animations":
-                keyword = "Inazuma eleven";
-                break;
+                case "Science: Gadgets":
+                    keyword = "cacerola";
+                    break;
 
-            default:
-                keyword = "perros";
+                case "Entertainment: Japanese Anime &amp; Manga":
+                    keyword = "Goku";
+                    break;
+
+                case "Entertainment: Cartoon &amp; Animations":
+                    keyword = "Inazuma eleven";
+                    break;
+
+                default:
+                    keyword = "perros";
+            }
+
+            // Incrementar el contador de preguntas
+            cont_questions++;
+            num_answer.textContent = cont_questions;
+            if (cont_questions > 10) {
+                console.log("Reinicio");
+                location.href = "results.html";
+            }
+
+            // Establecer la respuesta correcta y cargar la imagen
+            correct_answer = questionObj.correct_answer;
+            console.log("Respuesta correcta:", correct_answer);
+            console.log("Imagen:", keyword);
+
+            cargarAsy_img(keyword);
+            break; // Salimos tras mostrar la primera pregunta
         }
-
-        // Incrementar el contador de preguntas
-        cont_questions++;
-        num_answer.textContent = cont_questions;
-        if (cont_questions > 10) {
-            console.log("Reinicio");
-            location.href = "results.html";
-        }
-
-        // Establecer la respuesta correcta y cargar la imagen
-        correct_answer = questionObj.correct_answer;
-        console.log("Respuesta correcta:", correct_answer);
-        console.log("Imagen:", keyword);
-
-        cargarAsy_img(keyword);
-        break; // Salimos tras mostrar la primera pregunta
     }
-
 
 }
 
@@ -359,7 +364,7 @@ const ShowAnswers = (questions) => {
 
 const checkAnswers = (event) => {
     let choosenAnswer = event.target;
-    
+
     if (event.target.tagName === "BUTTON") {
         if (choosenAnswer.textContent === correct_answer) {
             console.log("Respuesta correcta");

@@ -1,11 +1,12 @@
 //Objeto para las preguntas
 
 class Question{
-    constructor(question,category,difficulty,incorrect_answers,correct_answer){
+    constructor(question,category,difficulty,incorrect_answers,type,correct_answer){
         this.question = question;
         this.category = category;
         this.difficulty = difficulty;
         this.incorrect_answers = [];
+        this.type = type;
         this.correct_answer = correct_answer;
         
     }
@@ -19,6 +20,7 @@ const newQuestion = (jsonData) => {
         jsonData.category,
         jsonData.difficulty,
         jsonData.incorrect_answers,
+        jsonData.type,
         jsonData.correct_answer
     );
 
