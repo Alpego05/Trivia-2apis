@@ -3,7 +3,7 @@ const option2 = document.getElementById("option2");
 const option3 = document.getElementById("option3");
 const option4 = document.getElementById("option4");
 const img_container = document.getElementById("img_container");
-const submit = document.getElementById("submit"); /* not used */
+// const submit = document.getElementById("submit"); /* not used */
 const question = document.getElementById("question");
 const answers = document.getElementById("answers");
 const num_answer = document.getElementById("num_answer");
@@ -202,7 +202,8 @@ const ShowAnswers = (questions) => {
 
             if (cont_questions > 10) {
                 console.log("Reinicio");
-                location.href = "results.html";
+                
+
             }
 
             // Establecer la respuesta correcta y cargar la imagen

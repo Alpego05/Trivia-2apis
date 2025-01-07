@@ -11,36 +11,58 @@
 
 <body class="bg-purple-300 text-gray-800 min-h-screen flex items-center justify-center">
     <div class="bg-purple-100 p-10 rounded-lg shadow-lg max-w-lg text-center border border-purple-300 my-3">
-        <p class="text-gray-700 text-right font-semibold text-sm mb-4">
-            Pregunta <span id="num_answer" class="text-purple-500 font-bold">0</span> de 10
-        </p>
-        <p id="question" class="text-xl font-bold mb-6 text-purple-700">Aquí va a salir la pregunta</p>
 
-        <!-- Opciones de Respuesta -->
-        <div id="answers" class="flex flex-col gap-4 p-4 max-w-sm mx-auto">
-            <button id="option1"
-                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-pink-600 hover:bg-purple-500 transition-all duration-300">
-                Opción 1
-            </button>
-            <button id="option2"
-                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-yellow-600 hover:bg-purple-500 transition-all duration-300">
-                Opción 2
-            </button>
-            <button id="option3"
-                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-green-600 hover:bg-purple-500 transition-all duration-300">
-                Opción 3
-            </button>
-            <button id="option4"
-                class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-blue-600 hover:bg-purple-500 transition-all duration-300">
-                Opción 4
-            </button>
+        <!-- parte del juego -->
+        <div id="game">
+            <p class="text-gray-700 text-right font-semibold text-sm mb-4">
+                Pregunta <span id="num_answer" class="text-purple-500 font-bold">0</span> de 10
+            </p>
+            <p id="question" class="text-xl font-bold mb-6 text-purple-700">Aquí va a salir la pregunta</p>
+
+            <!-- Opciones de Respuesta -->
+            <div id="answers" class="flex flex-col gap-4 p-4 max-w-sm mx-auto">
+                <button id="option1"
+                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-pink-600 hover:bg-purple-500 transition-all duration-300">
+                    Opción 1
+                </button>
+                <button id="option2"
+                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-yellow-600 hover:bg-purple-500 transition-all duration-300">
+                    Opción 2
+                </button>
+                <button id="option3"
+                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-green-600 hover:bg-purple-500 transition-all duration-300">
+                    Opción 3
+                </button>
+                <button id="option4"
+                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-blue-600 hover:bg-purple-500 transition-all duration-300">
+                    Opción 4
+                </button>
+            </div>
+
+            <!-- Contenedor de Imagen -->
+            <div id="img_container" class="flex justify-center items-center mt-6">
+            </div>
         </div>
 
-        <!-- Contenedor de Imagen -->
-        <div id="img_container" class="flex justify-center items-center mt-6">
-            <!-- Aquí puedes agregar una imagen si es necesario -->
+        <!-- parte de los resultados -->
+        <div id="results">
+            <h1 class="text-xl font-bold mb-6 text-purple-700">Trivia Game</h1>
+            <h2 class="text-lg font-bold mb-5 text-gray-700">- Resultados -</h2>
+            <p class="text-gray-700 font-semibold mb-2">
+                Respuestas correctas: <span id="correctAnswers" class="text-purple-500 font-bold">0</span>
+            </p>
+            <p class="text-gray-700 font-semibold mb-2">
+                Respuestas incorrectas: <span id="incorrectAnswers" class="text-red-500 font-bold">0</span>
+            </p>
+            <p class="text-gray-700 font-semibold">
+                Respuestas acertadas por suerte: <span id="luckyAnswers" class="text-green-500 font-bold">0</span>
+            </p>
         </div>
     </div>
+
+
+
+
 
     <script type="module" src="../js/script.js"></script>
     <script src="../js/questions.js"></script>
