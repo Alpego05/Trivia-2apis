@@ -1,3 +1,8 @@
+//bloques principales
+const game = document.getElementById('game');
+const results = document.getElementById('results');
+
+
 const option1 = document.getElementById("option1");
 const option2 = document.getElementById("option2");
 const option3 = document.getElementById("option3");
@@ -8,6 +13,10 @@ const question = document.getElementById("question");
 const answers = document.getElementById("answers");
 const num_answer = document.getElementById("num_answer");
 
+//parte de los resultados
+const correcthtml = document.getElementById("correctAnswers");
+const incorrecthtml = document.getElementById("incorrectAnswers");
+const luckyhtml = document.getElementById("luckyAnswers");
 
 //import objeto preguntas
 import "./questions.js";
@@ -202,8 +211,7 @@ const ShowAnswers = (questions) => {
 
             if (cont_questions > 10) {
                 console.log("Reinicio");
-                
-
+                showResults();
             }
 
             // Establecer la respuesta correcta y cargar la imagen
@@ -419,12 +427,22 @@ const checkAnswers = (event) => {
     }
 }
 
+// const correcthtml = document.getElementById("correctAnswers");
+// const incorrecthtml = document.getElementById("incorrectAnswers");
+// const luckyhtml = document.getElementById("luckyAnswers");
 
 
+const showResults = () => {
+    game.style.display = "none";
+    results.style.display = "block";
+}
 
 
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
 answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
+document.addEventListener("DOMContentLoaded" , () => {
+    results.style.display = "none";
+})
 
 // //metodo para guardar la dificultad en el localstorage
 // startTrivia.addEventListener("click", () => {
