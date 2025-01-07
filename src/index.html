@@ -27,7 +27,7 @@
 
   <!-- Main  -->
   <!-- cambiar grid-cols para el responsive -->
-  <div class="grid grid-rows-3 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+  <div class="grid grid-rows-3 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-6 p-6 mx-auto mt-6">
 
     <!-- Articles Section -->
     <section id="articles"
@@ -47,68 +47,79 @@
       </div>
     </section>
 
-         <!-- Gallery Section -->
-         <section id="gallery" class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
-          <h2 class="text-2xl font-bold mb-4 text-gray-800">Galería de Temas Trivia</h2>
-          <div class="flex flex-wrap justify-center gap-4">
-              <div class="relative">
-                  <img src="./assets/images/Plantas.jpg" alt="Naturaleza" class="rounded-lg shadow-md">
-                  <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Naturaleza</p>
-              </div>
-              <div class="relative">
-                  <img src="./assets/images/Cultura.jpg" alt="Cultura" class="rounded-lg shadow-md">
-                  <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Cultura</p>
-              </div>
-              <div class="relative">
-                  <img src="./assets/images/Tecnologia.jpg" alt="Tecnología" class="rounded-lg shadow-md">
-                  <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Tecnología</p>
-              </div>
-              <div class="relative">
-                <img src="./assets/images/Instrumento.png" alt="Naturaleza" class="rounded-lg shadow-md">
-                <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Música</p>
-            </div>
-            <div class="relative">
-                <img src="./assets/images/coche.jpg" alt="Cultura" class="rounded-lg shadow-md">
-                <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Vehículos</p>
-            </div>
-            <div class="relative">
-                <img src="./assets/images/perro.jpg" alt="Tecnología" class="rounded-lg shadow-md">
-                <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Animales</p>
-            </div>
-          </div>
-      </section>
+    <!-- Gallery Section -->
+    <section id="gallery"
+      class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Galería de Temas Trivia</h2>
+      <div class="flex flex-wrap justify-center gap-4 mt-5">
+        <div class="relative ">
+          <img src="./assets/images/Plantas.jpg" alt="Naturaleza"
+            class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Naturaleza</p>
+        </div>
+        <div class="relative">
+          <img src="./assets/images/Cultura.jpg" alt="Cultura" class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Cultura</p>
+        </div>
+        <div class="relative">
+          <img src="./assets/images/Tecnologia.jpg" alt="Tecnología"
+            class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Tecnología</p>
+        </div>
+        <div class="relative">
+          <img src="./assets/images/Instrumento.png" alt="Naturaleza"
+            class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Música</p>
+        </div>
+        <div class="relative">
+          <img src="./assets/images/coche.jpg" alt="Cultura" class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Vehículos</p>
+        </div>
+        <div class="relative">
+          <img src="./assets/images/perro.jpg" alt="Tecnología" class="rounded-lg shadow-md w-32 h-32 overflow-hidden">
+          <p class="absolute bottom-2 left-2 bg-white/75 p-1 rounded text-sm font-semibold">Animales</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- Trivia Section -->
-      <section class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
-          <h2 class="text-2xl font-bold mb-4 text-gray-800">Comienza tu Trivia</h2>
-          <div class="flex flex-col items-center gap-4">
+    <!-- Trivia Section -->
+    <section class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Comienza tu Trivia</h2>
+      <div class="flex flex-col items-center gap-4">
 
-              <!-- Select Difficulty -->
-              <div class="w-full max-w-sm">
-                  <label for="difficulty" class="block mb-2 text-gray-800 font-medium">Selecciona la dificultad:</label>
-                  <select id="difficulty" class="w-full bg-white border border-gray-300 text-gray-800 p-2 rounded-lg shadow-md">
-                      <option value="easy">Fácil</option>
-                      <option value="medium">Media</option>
-                      <option value="hard">Difícil</option>
-                  </select>
-              </div>
-              <!-- Start Button -->
-              <button id="startTrivia" class="bg-purple-400 hover:bg-purple-500 text-white py-2 px-4 rounded-lg shadow-lg text-lg font-semibold">
-                  Empezar Trivia
-              </button>
-          </div>
-      </section>
+        <!-- Select Difficulty -->
+        <div class="w-full max-w-sm">
+          <label for="difficulty" class="block mb-2 text-gray-800 font-medium">Selecciona la dificultad:</label>
+          <select id="difficulty" class="w-full bg-white border border-gray-300 text-gray-800 p-2 rounded-lg shadow-md">
+            <option value="easy">Fácil</option>
+            <option value="medium">Media</option>
+            <option value="hard">Difícil</option>
+          </select>
+        </div>
+        <!-- Start Button -->
+        <button id="startTrivia"
+          class="bg-purple-400 hover:bg-purple-500 text-white py-2 px-4 rounded-lg shadow-lg text-lg font-semibold">
+          <a href="./pages/game.html">
+            Empezar Trivia
+          </a>
+
+        </button>
+      </div>
+    </section>
   </div>
 
-     
 
 
-    <!-- Footer -->
-    <footer id="footer" class="bg-green-200 py-4 text-center">
-      <p class="text-gray-600">&copy; 2025 Trivia Game. Todos los derechos reservados.</p>
-      <p>Contacto: <a href="mailto:info@triviagame.com"
-          class="hover:underline text-green-800 font-semibold">info@triviagame.com</a></p>
-    </footer>
+
+  <!-- Footer -->
+  <footer id="footer" class="bg-green-200 py-4 text-center">
+    <p class="text-gray-600">&copy; 2025 Trivia Game. Todos los derechos reservados.</p>
+    <p>Contacto: <a href="mailto:info@triviagame.com"
+        class="hover:underline text-green-800 font-semibold">info@triviagame.com</a></p>
+  </footer>
+
+ <script src="./js/index.js"></script>
+  
 </body>
 
 </html>

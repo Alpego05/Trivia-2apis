@@ -3,10 +3,11 @@ const option2 = document.getElementById("option2");
 const option3 = document.getElementById("option3");
 const option4 = document.getElementById("option4");
 const img_container = document.getElementById("img_container");
-const submit = document.getElementById("submit");
+const submit = document.getElementById("submit"); /* not used */
 const question = document.getElementById("question");
 const answers = document.getElementById("answers");
 const num_answer = document.getElementById("num_answer");
+
 
 //import objeto preguntas
 import "./questions.js";
@@ -17,7 +18,10 @@ let cont_questions = 0; //contar numero de pregunta
 let correct_answers = 0; //preguntas acertadas **not used**
 let wrong_answers = 0; //pregntas no acertadas **not used**
 
-const ruta_trivia = "https://opentdb.com/api.php?&amount=5";
+console.log("dificultad del trivia: "+localStorage.getItem("difficulty"));
+let difficulty = localStorage.getItem("difficulty");
+
+const ruta_trivia = `https://opentdb.com/api.php?&amount=5&difficulty=${difficulty}`;
 //category=13 para modificar la categoría
 
 const cargarAsy_img = async (keyword) => {
@@ -207,6 +211,7 @@ const ShowAnswers = (questions) => {
 }
 
 //enseñar preguntas sin objetos **not used**
+
 // const ShowAnswers = (results) => {
 
 //     let keyword;
@@ -395,6 +400,11 @@ const checkAnswers = (event) => {
 document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
 answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
 
+// //metodo para guardar la dificultad en el localstorage
+// startTrivia.addEventListener("click", () => {
+//     console.log(difficulty.value)
+//     localStorage.setItem("difficulty", difficulty.value);
+// });
 
 
 
