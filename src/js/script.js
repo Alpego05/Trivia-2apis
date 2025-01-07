@@ -391,7 +391,7 @@ const checkAnswers = (event) => {
                     if (answer.textContent === correct_answer) {
                         answer.style.background = "green";
                     }
-                    setTimeout(cargarAsy_question, 2000);
+                    setTimeout(cargarAsy_question, 3000);
                 }
             }
         }
