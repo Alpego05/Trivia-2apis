@@ -15,8 +15,9 @@ import "./questions.js";
 let correct_answer; // variable to store the correct answer 
 let attemps; //para contar las veces que se pulsa una respuesta, hay 2 intentos
 let cont_questions = 0; //contar numero de pregunta
-let correct_answers = 0; //preguntas acertadas **not used**
-let wrong_answers = 0; //pregntas no acertadas **not used**
+let correct_answers = 0; //preguntas acertadas 
+let wrong_answers = 0; //pregntas no acertadas 
+let lucky_answers = 0; //preguntas acertadas por suerte
 
 console.log("dificultad del trivia: " + localStorage.getItem("difficulty"));
 let difficulty = localStorage.getItem("difficulty");
@@ -198,6 +199,7 @@ const ShowAnswers = (questions) => {
             // Incrementar el contador de preguntas
             cont_questions++;
             num_answer.textContent = cont_questions;
+
             if (cont_questions > 10) {
                 console.log("Reinicio");
                 location.href = "results.html";
@@ -361,6 +363,9 @@ const ShowAnswers = (questions) => {
 //     }
 // };
 
+// let correct_answers = 0; //preguntas acertadas 
+// let wrong_answers = 0; //pregntas no acertadas 
+// let lucky_answers = 0; //preguntas acertadas por suerte
 
 const checkAnswers = (event) => {
     let choosenAnswer = event.target;
@@ -373,7 +378,18 @@ const checkAnswers = (event) => {
             for (const answer of answers.children) {
                 answer.disabled = true;
             }
-            //vuelve a cargar otra pregunta
+           
+            //incrementamos los aciertos
+            //localstorage
+            if(attemps == 1) {
+                lucky_answers++;
+                localStorage.setItem('luckyAnswers', lucky_answers);
+            }else{
+                correct_answers++;
+                localStorage.setItem('correctAnswers', correct_answers);
+            }
+
+             //vuelve a cargar otra pregunta
             setTimeout(() => {
                 cargarAsy_question();
                 for (const answer of answers.children) {
@@ -387,6 +403,10 @@ const checkAnswers = (event) => {
             if (attemps < 2) {
                 console.log("Tienes otro intento");
             } else {
+                //localstorage
+                wrong_answers++;
+                localStorage.setItem('wrongAnswers', wrong_answers);
+
                 for (const answer of answers.children) {
                     if (answer.textContent === correct_answer) {
                         answer.style.background = "green";
@@ -413,9 +433,8 @@ answers.addEventListener("click", checkAnswers); //metodo para comprobar la resp
 
 
 
-//localstorage
-localStorage.setItem('correctAnswers', correct_answers);
-localStorage.setItem('wrongAnswers', wrong_answers);
+
+
 
 // // 0:
 // // category : "Entertainment: Video Games"
