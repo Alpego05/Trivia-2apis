@@ -9,8 +9,10 @@ class Question{
         this.type = type;
         this.correct_answer = correct_answer;
         
+        
     }
 }
+
 
 //metodo para crear el objeto pregunta que viene desde script.js
 const newQuestion = (jsonData) => {
