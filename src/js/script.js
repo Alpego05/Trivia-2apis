@@ -34,31 +34,8 @@ let difficulty = localStorage.getItem("difficulty");
 const ruta_trivia = `https://opentdb.com/api.php?&amount=5&difficulty=${difficulty}`;
 //category=13 para modificar la categoría
 
-const cargarAsy_img = async (keyword) => {
-    //usamos la apikey
-    let api_key = "f803e8b71325d2d2c06ef563fd9e9f44";
-    const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
-
-    try {
-        const datos = await fetch(ruta_img);
-        const datosjson = await datos.json();
-
-        if (datosjson.photos.photo.length > 0) {
-            const photo = datosjson.photos.photo[0];
-            const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
-            const img = document.createElement("img");
-            img.src = photoUrl;
-
-            img_container.innerHTML = "";
-            img_container.appendChild(img);
-        } else {
-            console.log("No se encontraron fotos");
-        }
-    } catch (error) {
-        console.error("Error al cargar la imagen:", error);
-    }
-};
-
+//función para conseguir las preguntas de la api del trivia
+//documentación: https://opentdb.com/api_config.php  // api libre
 const cargarAsy_question = async () => {
     const datos = await fetch(ruta_trivia);
     let datosjson = await datos.json(); // convierte a JSON
@@ -69,28 +46,25 @@ const cargarAsy_question = async () => {
     const questions = results.map(result => newQuestion(result)); //llama a la funcion dentro de questions.js para crear el objeto pregunta
     console.log(questions);
 
-    ShowAnswers(results); //a questions
+    ShowAnswers(results); //a questions.js
 };
 
 
-//ajustarlo a la incorporacion del objeto*********************************************************************************
+//función para mostrar las preguntas y respuestas del juego
 const ShowAnswers = (questions) => {
 
-
     let keyword;
-    attemps = 0; // Reinicia el conteo de intentos
+    attemps = 0; //conteo de intentos
 
-    // Reiniciamos los colores de los botones
+    // reinicio de los colores de los botones // metodo?
     for (const answer of answers.children) {
         answer.style.background = "transparent";
     }
 
+    //recorremos el array de objetos obtenidos de questions.js
     for (const questionObj of questions) {
-
-        //filtramos las preguntas que son boolean
+        //filtramos las preguntas para que solo salgan de multiple respuesta
         if (questionObj.type == "multiple") {
-
-
             const allAnswers = [...questionObj.incorrect_answers];
             allAnswers.push(questionObj.correct_answer);
             allAnswers.sort(() => Math.random() - 0.5);
@@ -101,7 +75,7 @@ const ShowAnswers = (questions) => {
             option3.innerHTML = allAnswers[2];
             option4.innerHTML = allAnswers[3];
 
-            // Definir palabra clave según la categoría
+            // Definir palabra clave según la categoría, si no no funciona, las imagenes cambian
             switch (questionObj.category) {
                 case "General Knowledge":
                     keyword = "museo";
@@ -205,16 +179,17 @@ const ShowAnswers = (questions) => {
                     keyword = "perros";
             }
 
-            // Incrementar el contador de preguntas
+            // incrementar el contador de preguntas para luego mostrarlo
             cont_questions++;
             num_answer.textContent = cont_questions;
 
+            //10 preguntas => fin del juego
             if (cont_questions > 10) {
                 console.log("Reinicio");
-                showResults();
+                showResults(); //metodo para mostrar los resultados del juego
             }
 
-            // Establecer la respuesta correcta y cargar la imagen
+            // establecer la respuesta correcta y cargar la imagen desde la api 
             correct_answer = questionObj.correct_answer;
             console.log("Respuesta correcta:", correct_answer);
             console.log("Imagen:", keyword);
@@ -226,8 +201,141 @@ const ShowAnswers = (questions) => {
 
 }
 
-//enseñar preguntas sin objetos **not used**
+//función para cargar las imagenes de la api
+//documentación: https://www.flickr.com/services/api/
+const cargarAsy_img = async (keyword) => {
+    //usamos la apikey
+    let api_key = "f803e8b71325d2d2c06ef563fd9e9f44";
+    const ruta_img = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&text=${keyword}&format=json&nojsoncallback=1&per_page=1`;
 
+    try {
+        const datos = await fetch(ruta_img);
+        const datosjson = await datos.json();
+
+        if (datosjson.photos.photo.length > 0) {
+            const photo = datosjson.photos.photo[0];
+
+            //construccion de la url
+            const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
+            //creaciión de la imagen con la url construida
+            const img = document.createElement("img");
+            img.src = photoUrl;
+
+            //borramos la imagen anterior para que no se junten
+            img_container.innerHTML= "";
+            img_container.appendChild(img);
+
+        } else {
+            console.log("No se encontraron fotos");
+        }
+    } catch (error) {
+        console.error("Error al cargar la imagen:", error);
+    }
+};
+
+
+// let correct_answers = 0; //preguntas acertadas 
+// let wrong_answers = 0; //pregntas no acertadas 
+// let lucky_answers = 0; //preguntas acertadas por suerte
+
+//función para revisar las respuestas
+const checkAnswers = (event) => {
+    let choosenAnswer = event.target;
+
+    if (event.target.tagName === "BUTTON") {
+        if (choosenAnswer.textContent === correct_answer) {
+            console.log("Respuesta correcta");
+            event.target.style.background = "green";
+            //desabilitamos los otros botones
+            for (const answer of answers.children) {
+                answer.disabled = true;
+            }
+           
+            //incrementamos los aciertos, no aciertos, y aciertos por suerte
+            //localstorage
+            if(attemps == 1) {
+                lucky_answers++;
+                localStorage.setItem('luckyAnswers', lucky_answers);
+            }else{
+                correct_answers++;
+                localStorage.setItem('correctAnswers', correct_answers);
+            }
+
+             //vuelve a cargar otra pregunta
+            setTimeout(() => {
+                cargarAsy_question();
+                for (const answer of answers.children) {
+                    answer.disabled = false;
+                }
+            }, 2000);
+        } else {
+            console.log("Respuesta incorrecta");
+            event.target.style.background = "red";
+            attemps++;
+            if (attemps < 2) {
+                console.log("Tienes otro intento");
+            } else {
+                //localstorage
+                wrong_answers++;
+                localStorage.setItem('wrongAnswers', wrong_answers);
+
+                for (const answer of answers.children) {
+                    if (answer.textContent === correct_answer) {
+                        answer.style.background = "green";
+                    }
+                    setTimeout(cargarAsy_question, 3000);
+                }
+            }
+        }
+    }
+}
+
+// const correcthtml = document.getElementById("correctAnswers");
+// const incorrecthtml = document.getElementById("incorrectAnswers");
+// const luckyhtml = document.getElementById("luckyAnswers");
+
+//funcion para mostrar los resultados una vez acabado el juego
+const showResults = () => {
+    game.style.display = "none";
+    results.style.display = "block";
+
+    let correct = localStorage.getItem('correctAnswers');
+    let wrong = localStorage.getItem('wrongAnswers');
+    let lucky = localStorage.getItem('luckyAnswers');
+
+    correcthtml.textContent = correct;
+    incorrecthtml.textContent = wrong;
+    luckyhtml.textContent = lucky;
+
+}
+
+
+document.addEventListener("DOMContentLoaded", cargarAsy_question); //función para cargar la pregunta
+answers.addEventListener("click", checkAnswers); //función para comprobar la respuesta.
+
+//metodo para desactivar results cuando se inicia la página
+document.addEventListener("DOMContentLoaded" , () => {
+    results.style.display = "none";
+})
+
+// //metodo para guardar la dificultad en el localstorage
+// startTrivia.addEventListener("click", () => {
+//     console.log(difficulty.value)
+//     localStorage.setItem("difficulty", difficulty.value);
+// });
+
+
+
+// // 0:
+// // category : "Entertainment: Video Games"
+// // correct_answer : "October 31st, 2019"
+// // difficulty : "easy"
+// // incorrect_answers : (3) ['January 13th, 2019', 'September 6th, 2018', 'October 1st, 2019']
+// // question : "When was &quot;Luigi&#039;s Mansion 3&quot; released?"
+// // type : "multiple"
+
+
+//enseñar preguntas sin usar objetos **no se usa**
 // const ShowAnswers = (results) => {
 
 //     let keyword;
@@ -371,105 +479,3 @@ const ShowAnswers = (questions) => {
 //         }
 //     }
 // };
-
-// let correct_answers = 0; //preguntas acertadas 
-// let wrong_answers = 0; //pregntas no acertadas 
-// let lucky_answers = 0; //preguntas acertadas por suerte
-
-const checkAnswers = (event) => {
-    let choosenAnswer = event.target;
-
-    if (event.target.tagName === "BUTTON") {
-        if (choosenAnswer.textContent === correct_answer) {
-            console.log("Respuesta correcta");
-            event.target.style.background = "green";
-            //desabilitamos los otros botones
-            for (const answer of answers.children) {
-                answer.disabled = true;
-            }
-           
-            //incrementamos los aciertos
-            //localstorage
-            if(attemps == 1) {
-                lucky_answers++;
-                localStorage.setItem('luckyAnswers', lucky_answers);
-            }else{
-                correct_answers++;
-                localStorage.setItem('correctAnswers', correct_answers);
-            }
-
-             //vuelve a cargar otra pregunta
-            setTimeout(() => {
-                cargarAsy_question();
-                for (const answer of answers.children) {
-                    answer.disabled = false;
-                }
-            }, 2000);
-        } else {
-            console.log("Respuesta incorrecta");
-            event.target.style.background = "red";
-            attemps++;
-            if (attemps < 2) {
-                console.log("Tienes otro intento");
-            } else {
-                //localstorage
-                wrong_answers++;
-                localStorage.setItem('wrongAnswers', wrong_answers);
-
-                for (const answer of answers.children) {
-                    if (answer.textContent === correct_answer) {
-                        answer.style.background = "green";
-                    }
-                    setTimeout(cargarAsy_question, 3000);
-                }
-            }
-        }
-    }
-}
-
-// const correcthtml = document.getElementById("correctAnswers");
-// const incorrecthtml = document.getElementById("incorrectAnswers");
-// const luckyhtml = document.getElementById("luckyAnswers");
-
-
-const showResults = () => {
-    game.style.display = "none";
-    results.style.display = "block";
-
-    let correct = localStorage.getItem('correctAnswers');
-    let wrong = localStorage.getItem('wrongAnswers');
-    let lucky = localStorage.getItem('luckyAnswers');
-
-    correcthtml.textContent = correct;
-    incorrecthtml.textContent = wrong;
-    luckyhtml.textContent = lucky;
-
-}
-
-
-document.addEventListener("DOMContentLoaded", cargarAsy_question); //metodo para cargar la pregunta
-answers.addEventListener("click", checkAnswers); //metodo para comprobar la respuesta.
-
-//metodo para desactivar results cuando se inicia la página
-document.addEventListener("DOMContentLoaded" , () => {
-    results.style.display = "none";
-})
-
-// //metodo para guardar la dificultad en el localstorage
-// startTrivia.addEventListener("click", () => {
-//     console.log(difficulty.value)
-//     localStorage.setItem("difficulty", difficulty.value);
-// });
-
-
-
-
-
-
-// // 0:
-// // category : "Entertainment: Video Games"
-// // correct_answer : "October 31st, 2019"
-// // difficulty : "easy"
-// // incorrect_answers : (3) ['January 13th, 2019', 'September 6th, 2018', 'October 1st, 2019']
-// // question : "When was &quot;Luigi&#039;s Mansion 3&quot; released?"
-// // type : "multiple"

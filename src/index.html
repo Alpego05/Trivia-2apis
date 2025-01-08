@@ -9,30 +9,35 @@
   <link rel="stylesheet" href="./assets/remixicon/remixicon.css" />
 </head>
 
+
 <body class="bg-pink-100 text-gray-800 min-h-screen">
-  <nav class="sticky top-0 bg-gradient-to-r from-pink-200 via-yellow-200 to-purple-200 shadow-md p-4 z-50">
+  <header>
+    <nav class="sticky top-0 bg-gradient-to-r from-pink-200 via-yellow-200 to-purple-200 shadow-md p-4 z-50">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold text-gray-800">Trivia Game</h1>
-      <!-- Navigation Links (hidden on small screens) -->
+
+      <!-- links (escondidos en sm)  -->
       <div class="hidden sm:flex gap-4">
-        <a href="#home" class="hover:text-pink-600 font-semibold">Inicio</a>
-        <a href="#articles" class="hover:text-yellow-600 font-semibold">Artículos</a>
-        <a href="#gallery" class="hover:text-purple-600 font-semibold">Galería</a>
-        <a href="#quiz" class="hover:text-green-600 font-semibold">Trivia</a>
-        <a href="#footer" class="hover:text-blue-600 font-semibold">Contacto</a>
+        <a href="#" class="hover:text-pink-600 font-semibold">Inicio</a>
+        <a href="#" class="hover:text-yellow-600 font-semibold">Artículos</a>
+        <a href="#" class="hover:text-purple-600 font-semibold">Galería</a>
+        <a href="#" class="hover:text-green-600 font-semibold">Trivia</a>
+        <a href="#" class="hover:text-blue-600 font-semibold">Contacto</a>
       </div>
-      <!-- Menu Button (only visible on small screens) -->
+      <!-- menu i (escondido hasta resolucion sm) -->
       <button class="sm:hidden bg-purple-400 text-white py-2 px-4 rounded-lg font-bold"><i class="ri-menu-line"></i> </button>
     </div>
   </nav>
+  </header>
 
-  <!-- Main  -->
+
+  <!-- contenido main -->
+  <main>
   <!-- cambiar grid-cols para el responsive -->
   <div class="grid grid-rows-3 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-6 p-6 mx-auto mt-6">
 
-    <!-- Articles Section -->
-    <section id="articles"
-      class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
+    <!-- articles Section -->
+    <section class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Artículos sobre Trivia</h2>
       <div class="space-y-4">
         <article class="bg-purple-200 p-4 rounded-lg shadow-md">
@@ -48,9 +53,8 @@
       </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery"
-      class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
+    <!-- gallery Section -->
+    <section class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Galería de Temas Trivia</h2>
       <div class="flex flex-wrap justify-center gap-4 mt-5">
         <div class="relative ">
@@ -83,12 +87,12 @@
       </div>
     </section>
 
-    <!-- Trivia Section -->
+    <!-- trivia Section -->
     <section class="justify-center text-center flex flex-col  bg-purple-100 p-6 rounded-lg shadow-md col-span-1">
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Comienza tu Trivia</h2>
       <div class="flex flex-col items-center gap-4">
 
-        <!-- Select Difficulty -->
+        <!-- para selecionar la dificultad-->
         <div class="w-full max-w-sm">
           <label for="difficulty" class="block mb-2 text-gray-800 font-medium">Selecciona la dificultad:</label>
           <select id="difficulty" class="w-full bg-white border border-gray-300 text-gray-800 p-2 rounded-lg shadow-md">
@@ -97,7 +101,7 @@
             <option value="hard">Difícil</option>
           </select>
         </div>
-        <!-- Start Button -->
+        <!-- evento para empezar el trivia -->
         <button id="startTrivia"
           class="bg-purple-400 hover:bg-purple-500 text-white py-2 px-4 rounded-lg shadow-lg text-lg font-semibold">
           <a href="./pages/game.html">
@@ -108,22 +112,20 @@
       </div>
     </section>
   </div>
-
-
-
-
-  <!-- Footer -->
+  </main>
+  
+  <!-- footer -->
   <footer class="bg-green-200 text-gray-800 py-4 px-9">
     <div class="container mx-auto px-6 flex flex-col  lg:flex-row justify-between ">
       
-        <div class="w-full lg:w-1/3">  
+        <div class="w-full lg:w-1/3 my-2">  
             <h3 class="text-xl font-bold  mb-4 text-lime-600">Sobre Trivia Game</h3>
             <p class="text-sm text-gray-700">
                 Trivia Game es una plataforma para desafiar tu conocimiento en diferentes áreas. Juega, aprende y comparte con amigos.
             </p>
         </div>
 
-        <div class="w-full lg:w-1/3">
+        <div class="w-full lg:w-1/3 my-2">
             <h3 class="text-xl font-bold  mb-4 text-lime-600">Contacto</h3>
             <ul class="space-y-2 text-sm">
                 <li><i class="ri-mail-line text-green-600"></i> <a href="mailto:info@triviagame.com" class="hover:underline">info@triviagame.com</a></li>
@@ -134,8 +136,6 @@
 
         
     </div>
-
-    <!-- Bottom Section -->
     <div class="border-t border-green-300 mt-8 pt-4 text-center">
         <p class="text-sm text-gray-700">2025 Trivia Game. </p>
     </div>

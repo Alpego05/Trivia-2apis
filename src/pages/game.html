@@ -14,37 +14,37 @@
 
         <!-- parte del juego -->
         <div id="game">
+            <!--  contador de preguntas -->
             <p class="text-gray-700 text-right font-semibold text-sm mb-4">
                 Pregunta <span id="num_answer" class="text-purple-500 font-bold">0</span> de 10
             </p>
+
+            <!-- pregunta -->
             <p id="question" class="text-xl font-bold mb-6 text-purple-700">Aquí va a salir la pregunta</p>
 
-            <!-- Opciones de Respuesta -->
+            <!-- posibles respuestas -->
             <div id="answers" class="flex flex-col gap-4 p-4 max-w-sm mx-auto">
-                <button id="option1"
-                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-pink-600 hover:bg-purple-500 transition-all duration-300">
+                <button id="option1"class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-pink-600 hover:bg-purple-500 transition-all duration-300">
                     Opción 1
                 </button>
-                <button id="option2"
-                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-yellow-600 hover:bg-purple-500 transition-all duration-300">
+                <button id="option2" class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-yellow-600 hover:bg-purple-500 transition-all duration-300">
                     Opción 2
                 </button>
-                <button id="option3"
-                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-green-600 hover:bg-purple-500 transition-all duration-300">
+                <button id="option3" class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-green-600 hover:bg-purple-500 transition-all duration-300">
                     Opción 3
                 </button>
-                <button id="option4"
-                    class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-blue-600 hover:bg-purple-500 transition-all duration-300">
+                <button id="option4"class="border border-purple-500 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-md hover:text-blue-600 hover:bg-purple-500 transition-all duration-300">
                     Opción 4
                 </button>
             </div>
 
-            <!-- Contenedor de Imagen -->
+            <!-- api2 imagen -->
             <div id="img_container" class="flex justify-center items-center mt-6">
             </div>
         </div>
 
         <!-- parte de los resultados -->
+         <!-- alternar display entre los resultados y el juego en si para cuando llegue a la 10 pregunta -->
         <div id="results">
             <h1 class="text-xl font-bold mb-6 text-purple-700">Trivia Game</h1>
             <h2 class="text-lg font-bold mb-5 text-gray-700">- Resultados -</h2>
@@ -58,6 +58,7 @@
                 Respuestas acertadas por suerte: <span id="luckyAnswers" class="text-purple-500 font-bold">0</span>
             </p>
 
+            <!-- reinicio de trivia que reedirije a index.html -->
             <button id="startTrivia"
           class="bg-purple-400 hover:bg-purple-500 text-white py-2 px-4 rounded-lg shadow-lg text-lg font-semibold my-3">
           <a href="../index.html">
